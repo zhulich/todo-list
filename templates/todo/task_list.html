@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>
+    TODO list
+    <a class="btn btn-primary float-end" href="{% url 'practice:task-create' %}">Add task</a>
+  </h1>
+
+
+  {% if task_list %}
+    <table class="table">
+      {% for task in task_list %}
+        <tr>
+        <td>
+          <p class="h4">
+            <strong>
+              {{ task.content }}
+              {% if task.completed %}
+                <span style="color: green">Done</span>
+              {% else %}
+                <span style="color: red">Not done</span>
+              {% endif %}
+              {% if task.completed %}
+                <a class="btn btn-secondary float-end" href="{% url 'practice:assign' pk=task.id%}">Undo</a>
+              {% else %}
+                <a class="btn btn-success float-end" href="{% url 'practice:assign' pk=task.id%}">Complete</a>
+              {% endif %}
+            </strong>
+          </p>
+            <p class="h6 d-inline">Created: {{ task.created }}</p>
+            {% if task.deadline %}
+              <p style="color: saddlebrown" class="h6 d-inline">Deadline: {{ task.deadline }}</p>
+            {% endif %}
+            <p class="text-secondary h4">
+              Tags:
+              {% for tag in task.tags.all %}
+                {{ tag }}
+              {% endfor %}
+            <a href="{% url 'practice:task-update' pk=task.id %}">Update</a>
+            <a href="{% url 'practice:task-delete' pk=task.id%}">Delete</a>
+            </p>
+        </td>
+        </tr>
+      {% endfor %}
+    </table>
+
+  {% else %}
+    <p>No task</p>
+  {% endif %}
+
+{% endblock %}
