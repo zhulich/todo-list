@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 from todo.views import TaskListView, TaskCreateView, TaskUpdateView, TaskDeleteView, TagListView, TagCreateView, \
     TagUpdateView, TagDeleteView
@@ -28,5 +28,6 @@ urlpatterns = [
     path("tags/", TagListView.as_view(), name="tag-list"),
     path("tags/create/", TagCreateView.as_view(), name="tag-create"),
     path("tags/<int:pk>/update/", TagUpdateView.as_view(), name="tag-update"),
-    path("tags/<int:pk>/delete/", TagDeleteView.as_view, name="tag-delete")
+    path("tags/<int:pk>/delete/", TagDeleteView.as_view, name="tag-delete"),
+    path("__debug__/", include("debug_toolbar.urls")),
 ]
