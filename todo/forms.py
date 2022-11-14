@@ -11,9 +11,7 @@ class TaskForm(forms.ModelForm):
         widget=forms.CheckboxSelectMultiple,
     )
     deadline = forms.DateTimeField(
-        input_formats='%Y-%m-%d %H:%M',
-        required=False,
-        initial=datetime.datetime.today
+        input_formats="%Y-%m-%d %H:%M", required=False, initial=datetime.datetime.today
     )
 
     class Meta:
